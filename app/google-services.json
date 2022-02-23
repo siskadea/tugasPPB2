@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "367491731117",
+    "project_id": "tes1-a7a20",
+    "storage_bucket": "tes1-a7a20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367491731117:android:bddd6ee3dc651b256a0024",
+        "android_client_info": {
+          "package_name": "com.siskadea.tes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367491731117-gmkmnvaj06398njsp954178e0va21250.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9o6ay-skKH9WCeN0Yzm6hBW3GQCNolL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367491731117-gmkmnvaj06398njsp954178e0va21250.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
