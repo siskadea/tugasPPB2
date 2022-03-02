@@ -11,7 +11,11 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.EditText
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
     private var auth:FirebaseAuth? = null
@@ -36,6 +40,35 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         when(v.getId()){
             R.id.save -> {
             //UNTUK SIMPAN DATA
+                // Statement program untuk simpan data
+//Mendapatkan UserID dari pengguna yang Terautentikasi
+                val getUserID = auth!!.currentUser!!.uid
+//Mendapatkan Instance dari Database
+                val database = FirebaseDatabase.getInstance("https://tes1-a7a20-default-rtdb.asia-southeast1.firebasedatabase.app/")
+//Menyimpan Data yang diinputkan User kedalam Variable
+                
+                val getNIM: String = nim.getText().toString()
+                val getNama: String = nama.getText().toString()
+                val getJurusan: String = jurusan.getText().toString()
+                
+// Mendapatkan Referensi dari Database
+                
+                val getReference: DatabaseReference
+                getReference = database.reference
+                if (isEmpty(getNIM) || isEmpty(getNama) || isEmpty(getJurusan)) {
+//Jika Ada, maka akan menampilkan pesan singkan seperti berikut ini.
+                    Toast.makeText(this@MainActivity, "Data tidak boleh ada yang kosong", Toast.LENGTH_SHORT).show()
+                } else {
+                    getReference.child("Admin").child(getUserID).child("Mahasiswa").push()
+                        .setValue(data_mahasiswa(getNIM, getNama, getJurusan))
+                        .addOnCompleteListener(this) { //Peristiwa ini terjadi saat user berhasil menyimpan datanya kedalam Database
+                            nim.setText("")
+                            nama.setText("")
+                            jurusan.setText("")
+                            Toast.makeText(this@MainActivity, "Data Tersimpan",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                }
             }
             R.id.logout ->
                 //UNTUK KELUAR
