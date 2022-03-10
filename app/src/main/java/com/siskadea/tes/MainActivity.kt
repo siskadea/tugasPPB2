@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
             R.id.showdata ->{
             //UNTUK MENAMPILKAN DATA
+                startActivity(Intent(this@MainActivity, MyListData::class.java))
             }
         }
     }
