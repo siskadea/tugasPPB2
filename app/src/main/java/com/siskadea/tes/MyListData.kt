@@ -37,26 +37,25 @@ class MyListData : AppCompatActivity() {
     }
     //Baris kode untuk mengambil data dari Database & menampilkan kedalam Adapter
     private fun GetData() {
-
         Toast.makeText(applicationContext, "Mohon Tunggu Sebentar...",
             Toast.LENGTH_LONG).show()
         val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
         val getReference = database.getReference()
-
         getReference.child("Admin").child(getUserID).child("Mahasiswa")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
                         for (snapshot in dataSnapshot.children) {
-//Mapping data pada DataSnapshot ke dalam objek mahasiswa
-                            val mahasiswa = snapshot.getValue(data_mahasiswa::class.java)
-//Mengambil Primary Key, digunakan untuk proses Update/Delete
+                            //Mapping data pada DataSnapshot ke dalam objek mahasiswa
+                            val mahasiswa =
+                                snapshot.getValue(data_mahasiswa::class.java)
+                            //Mengambil Primary Key, digunakan untuk proses Update/Delete
                             mahasiswa?.key = snapshot.key
                             dataMahasiswa.add(mahasiswa!!)
                         }
-//Inisialisasi Adapter dan data Mahasiswa dalam bentuk Array
+                        //Inisialisasi Adapter dan data Mahasiswa dalam bentuk Array
                         adapter = RecyclerViewAdapter(dataMahasiswa, this@MyListData)
-//Memasang Adapter pada RecyclerView
+                        //Memasang Adapter pada RecyclerView
                         recyclerView?.adapter = adapter
                         (adapter as RecyclerViewAdapter).notifyDataSetChanged()
                         Toast.makeText(applicationContext,"Data Berhasil Dimuat",
@@ -64,15 +63,53 @@ class MyListData : AppCompatActivity() {
                     }
                 }
                 override fun onCancelled(databaseError: DatabaseError) {
-// Kode ini akan dijalankan ketika ada error, simpan ke LogCat
+                    // Kode ini akan dijalankan ketika ada error, simpan ke LogCat
                     Toast.makeText(applicationContext, "Data Gagal Dimuat",
                         Toast.LENGTH_LONG).show()
                     Log.e("MyListActivity", databaseError.details + " " +
                             databaseError.message)
                 }
             })
-
     }
+
+
+    //    private fun GetData() {
+//
+//        Toast.makeText(applicationContext, "Mohon Tunggu Sebentar...",
+//            Toast.LENGTH_LONG).show()
+//        val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
+//        val getReference = database.getReference()
+//
+//        getReference.child("Admin").child(getUserID).child("Mahasiswa")
+//            .addValueEventListener(object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    if (dataSnapshot.exists()) {
+//                        for (snapshot in dataSnapshot.children) {
+////Mapping data pada DataSnapshot ke dalam objek mahasiswa
+//                            val mahasiswa = snapshot.getValue(data_mahasiswa::class.java)
+////Mengambil Primary Key, digunakan untuk proses Update/Delete
+//                            mahasiswa?.key = snapshot.key
+//                            dataMahasiswa.add(mahasiswa!!)
+//                        }
+////Inisialisasi Adapter dan data Mahasiswa dalam bentuk Array
+//                        adapter = RecyclerViewAdapter(dataMahasiswa, this@MyListData)
+////Memasang Adapter pada RecyclerView
+//                        recyclerView?.adapter = adapter
+//                        (adapter as RecyclerViewAdapter).notifyDataSetChanged()
+//                        Toast.makeText(applicationContext,"Data Berhasil Dimuat",
+//                            Toast.LENGTH_LONG).show()
+//                    }
+//                }
+//                override fun onCancelled(databaseError: DatabaseError) {
+//// Kode ini akan dijalankan ketika ada error, simpan ke LogCat
+//                    Toast.makeText(applicationContext, "Data Gagal Dimuat",
+//                        Toast.LENGTH_LONG).show()
+//                    Log.e("MyListActivity", databaseError.details + " " +
+//                            databaseError.message)
+//                }
+//            })
+//
+//    }
     //Methode yang berisi kumpulan baris kode untuk mengatur RecyclerView
     private fun MyRecyclerView() {
 //Menggunakan Layout Manager, Dan Membuat List Secara Vertical
