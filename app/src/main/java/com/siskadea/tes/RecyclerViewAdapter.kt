@@ -51,9 +51,6 @@ class RecyclerViewAdapter(private var listMahasiswa: ArrayList<data_mahasiswa>,
         holder.Jurusan.text = "Jurusan: $Jurusan"
         holder.ListItem.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(v: View?): Boolean {
-//Kodingan untuk fungsi Edit dan Delete, yang dibahas pada Tutorial Berikutnya.
-                holder.ListItem.setOnLongClickListener(object : View.OnLongClickListener {
-                    override fun onLongClick(v: View?): Boolean {
 //Kodingan untuk membuat fungsi Edit dan Delete, yang akan dibahas pada Tutorial Berikutnya.
                         holder.ListItem.setOnLongClickListener { view ->
                             val action = arrayOf("Update", "Delete")
@@ -82,9 +79,7 @@ listMahasiswa, berdasarkan posisinya untuk dikirim pada activity selanjutnya */
                             true
                         }
                         return true;
-                    }
-                })
-                return true
+
             }
         })
     }
@@ -92,21 +87,24 @@ listMahasiswa, berdasarkan posisinya untuk dikirim pada activity selanjutnya */
 //Menghitung Ukuran/Jumlah Data Yang Akan Ditampilkan Pada RecyclerView
         return listMahasiswa.size
     }
+
+    //Deklarasi objek dari Interfece
+    var listener: dataListener? = null
+
     //Membuat Konstruktor, untuk menerima input dari Database
     init {
         this.context = context
+        this.listener = context as MyListData
     }
-
+    //Membuat Interfece
     interface dataListener {
         fun onDeleteData(data: data_mahasiswa?, position: Int)
     }
-    //Deklarasi objek dari Interfece
-    var listener: dataListener? = null
     //Membuat Konstruktor, untuk menerima input dari Database
-    fun RecyclerViewAdapter(listMahasiswa: ArrayList<data_mahasiswa>?, context:
-    Context?) {
-        this.listMahasiswa = listMahasiswa!!
-        this.context = context!!
-        listener = context as MyListData?
-    }
+//    fun RecyclerViewAdapter(listMahasiswa: ArrayList<data_mahasiswa>?, context:
+//    Context?) {
+//        this.listMahasiswa = listMahasiswa!!
+//        this.context = context!!
+//        listener = context as MyListData?
+//    }
 }

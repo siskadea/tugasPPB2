@@ -125,28 +125,28 @@ class MyListData : AppCompatActivity(), RecyclerViewAdapter.dataListener {
         recyclerView?.addItemDecoration(itemDecoration)
     }
 
-        override fun onDeleteData(data: data_mahasiswa?, position: Int) {
-/* Kode ini akan dipanggil ketika method onDeleteData dipanggil dari adapter
-* pada RecyclerView melalui interface. kemudian akan menghapus data berdasarkan
-* primary key dari data tersebut Jika berhasil, maka akan memunculkan Toast */
-//            Toast.makeText(this@MyListData, "Data Berhasil Dihapus",
-//                Toast.LENGTH_SHORT).show();
-            val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
-            val getReference = database.getReference()
-            val getKey = intent.extras!!.getString("getPrimaryKey")
-
-            if(getReference != null){
-                getReference.child("Admin")
-                    .child(getUserID)
-                    .child("Mahasiswa")
-                    .child(getKey!!)
-                    .removeValue()
-                    .addOnSuccessListener {
-                        Toast.makeText(this@MyListData, "Data Berhasil Dihapus",
-                            Toast.LENGTH_SHORT).show();
-                        finish()
-                    }
-            }
+    override fun onDeleteData(data: data_mahasiswa?, position: Int) {
+        /* Kode ini akan dipanggil ketika method onDeleteData dipanggil dari adapter
+        * pada RecyclerView melalui interface. kemudian akan menghapus data berdasarkan
+        * primary key dari data tersebut Jika berhasil, maka akan memunculkan Toast */
+        val getUserID: String = auth?.getCurrentUser()?.getUid().toString()
+        val getReference = database.getReference()
+        //val getKey = intent.extras!!.getString("getPrimaryKey")
+        val getKey = data?.key.toString()
+        if(getReference != null){
+            getReference.child("Admin")
+                .child(getUserID)
+                .child("Mahasiswa")
+                .child(getKey!!)
+                .removeValue()
+                .addOnSuccessListener {
+                    Toast.makeText(this@MyListData, "Data Berhasil Dihapus",
+                        Toast.LENGTH_SHORT).show();
+                }
+        } else {
+            Toast.makeText(this@MyListData, "Reference kosong",
+                Toast.LENGTH_SHORT).show()
         }
+    }
 
 }
