@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 val getNIM: String = nim.getText().toString()
                 val getNama: String = nama.getText().toString()
                 val getJurusan: String = jurusan.getText().toString()
+                val getAlamat: String = alamat.getText().toString()
+                val getJk: String = jenis_kelamin.getText().toString()
                 
 // Mendapatkan Referensi dari Database
                 
@@ -60,11 +62,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                     Toast.makeText(this@MainActivity, "Data tidak boleh ada yang kosong", Toast.LENGTH_SHORT).show()
                 } else {
                     getReference.child("Admin").child(getUserID).child("Mahasiswa").push()
-                        .setValue(data_mahasiswa(getNIM, getNama, getJurusan))
+                        .setValue(data_mahasiswa(getNIM, getNama, getJurusan, getAlamat, getJk))
                         .addOnCompleteListener(this) { //Peristiwa ini terjadi saat user berhasil menyimpan datanya kedalam Database
                             nim.setText("")
                             nama.setText("")
                             jurusan.setText("")
+                            alamat.setText("")
+                            jenis_kelamin.setText("")
                             Toast.makeText(this@MainActivity, "Data Tersimpan",
                                 Toast.LENGTH_SHORT).show()
                         }

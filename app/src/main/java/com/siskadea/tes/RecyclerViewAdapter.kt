@@ -23,12 +23,16 @@ class RecyclerViewAdapter(private var listMahasiswa: ArrayList<data_mahasiswa>,
         val NIM: TextView
         val Nama: TextView
         val Jurusan: TextView
+        val Alamat: TextView
+        val Jk: TextView
         val ListItem: LinearLayout
         init {
             //Menginisialisasi View yang terpasang pada layout RecyclerView kita
             NIM = itemView.findViewById(R.id.nimx)
             Nama = itemView.findViewById(R.id.namax)
             Jurusan = itemView.findViewById(R.id.jurusanx)
+            Alamat = itemView.findViewById(R.id.alamatx)
+            Jk = itemView.findViewById(R.id.jenis_kelaminx)
             ListItem = itemView.findViewById(R.id.list_item)
         }
     }
@@ -45,10 +49,14 @@ class RecyclerViewAdapter(private var listMahasiswa: ArrayList<data_mahasiswa>,
         val NIM: String? = listMahasiswa.get(position).nim
         val Nama: String? = listMahasiswa.get(position).nama
         val Jurusan: String? = listMahasiswa.get(position).jurusan
+        val Alamat: String? = listMahasiswa.get(position).alamat
+        val Jk: String? = listMahasiswa.get(position).jenis_kelamin
 //Memasukan Nilai/Value kedalam View (TextView: NIM, Nama, Jurusan)
         holder.NIM.text = "NIM: $NIM"
         holder.Nama.text = "Nama: $Nama"
         holder.Jurusan.text = "Jurusan: $Jurusan"
+        holder.Alamat.text = "Alamat: $Alamat"
+        holder.Jk.text = "Jenis Kelamin: $Jk"
         holder.ListItem.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(v: View?): Boolean {
 //Kodingan untuk membuat fungsi Edit dan Delete, yang akan dibahas pada Tutorial Berikutnya.
@@ -64,6 +72,8 @@ listMahasiswa, berdasarkan posisinya untuk dikirim pada activity selanjutnya */
                                         bundle.putString("dataNIM", listMahasiswa[position].nim)
                                         bundle.putString("dataNama", listMahasiswa[position].nama)
                                         bundle.putString("dataJurusan", listMahasiswa[position].jurusan)
+                                        bundle.putString("dataAlamat", listMahasiswa[position].alamat)
+                                        bundle.putString("dataJk", listMahasiswa[position].jenis_kelamin)
                                         bundle.putString("getPrimaryKey", listMahasiswa[position].key)
                                         val intent = Intent(view.context, UpdateData::class.java)
                                         intent.putExtras(bundle)
